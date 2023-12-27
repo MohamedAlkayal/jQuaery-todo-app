@@ -1,0 +1,285 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 64px;
+  gap: 1rem;
+  color: #333;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 16px;
+  border-radius: 30px;
+  width: 400px;
+  border: 1px solid #eee;
+}
+
+.input input {
+  border: none;
+  outline: none;
+  padding: 8px;
+  width: 80%;
+  background-color: transparent;
+}
+
+.input button {
+  cursor: pointer;
+  padding-bottom: 3px;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  width: 40px;
+  height: 40px;
+  font-size: 28px;
+  color: #666;
+  background-color: white;
+  font-weight: bold;
+  transition: 300ms;
+}
+
+.input button:hover {
+  background-color: #eee;
+  color: black;
+}
+
+#list {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 400px;
+  min-height: 300px;
+  max-height: 600px;
+  border: 1px solid #eee;
+  border-radius: 24px;
+  padding: 16px;
+  overflow-y: scroll;
+}
+
+.task {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px;
+  border-radius: 16px;
+  transition: 300ms;
+}
+
+.task:hover {
+  background-color: #f6f6f6;
+}
+
+.task div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.task div input {
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+}
+
+.task i {
+  cursor: pointer;
+  color: #666;
+  transition: 300ms;
+  font-size: 14px;
+}
+
+.task i:hover {
+  scale: 1.2;
+  color: rgb(176, 20, 20);
+}
+
+.empty {
+  padding: 32px 0;
+  text-align: center;
+  color: #999;
+}
+
+.done {
+  color: #999;
+  text-decoration: line-through;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+  padding: 16px;
+  border: 1px solid #eee;
+  border-radius: 30px;
+}
+
+.tools {
+  position: relative;
+  z-index: 2;
+}
+
+.settings {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  font-size: 24px;
+  transition: 300ms;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  background-color: white;
+  color: #666;
+}
+
+.tools:hover .settings {
+  scale: 1.1;
+  transform: rotate(20deg);
+  background-color: #eee;
+  color: black;
+}
+
+.clear {
+  z-index: -1;
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 6px;
+  right: 6px;
+  width: 30px;
+  height: 30px;
+  padding: 8px;
+  font-size: 22px;
+  border-radius: 50%;
+  transition: 300ms;
+  background-color: white;
+  border: 1px solid #eee;
+}
+
+.clear:hover {
+  color: rgb(176, 20, 20);
+}
+
+.clear::before {
+  position: absolute;
+  content: "Delete All";
+  font-size: 12px;
+  left: 33px;
+  top: 6px;
+  opacity: 0;
+  transition: 300ms;
+  width: 100px;
+}
+
+.clear::after {
+  position: absolute;
+  content: "";
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.clear:hover::before {
+  opacity: 1;
+  color: rgb(176, 20, 20);
+}
+
+.tools:hover .clear {
+  bottom: 50px;
+  right: -20px;
+}
+
+.hide {
+  z-index: -1;
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 6px;
+  right: 6px;
+  width: 30px;
+  height: 30px;
+  padding: 8px;
+  border-radius: 50%;
+  font-size: 20px;
+  transition: 300ms;
+  background-color: white;
+  border: 1px solid #eee;
+}
+
+.hide::before {
+  position: absolute;
+  content: "Toggle Done";
+  font-size: 12px;
+  left: -75px;
+  top: 6px;
+  opacity: 0;
+  transition: 300ms;
+  width: 80px;
+}
+
+.hide:hover::before {
+  opacity: 1;
+  color: rgb(5, 127, 234);
+}
+
+.hide::after {
+  position: absolute;
+  content: "";
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.hide:hover {
+  color: rgb(5, 127, 234);
+}
+
+.tools:hover .hide {
+  bottom: 50px;
+  right: 30px;
+}
+
+.progress {
+  padding: 8px;
+  font-size: 14px;
+  width: 80%;
+}
+
+.progress-text {
+  margin-bottom: 8px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  border-radius: 8px;
+  background-color: #eee;
+}
+.progress-percentage {
+  height: 100%;
+  width: 0%;
+  border-radius: 8px;
+  transition: 300ms;
+  background-color: rgb(5, 127, 234);
+}

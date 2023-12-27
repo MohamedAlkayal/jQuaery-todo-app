@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
+    <title>to do</title>
+    <script src="./jquery-3.7.1.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script
+      src="https://kit.fontawesome.com/92f293de12.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="input">
+      <input type="text" id="inpt" placeholder="What's your next task?" />
+      <button id="btn">+</button>
+    </div>
+    <div id="list"></div>
+    <div class="actions">
+      <div class="progress">
+        <p class="progress-text"></p>
+        <div class="progress-bar">
+          <div class="progress-percentage"></div>
+        </div>
+      </div>
+      <div class="tools">
+        <div class="settings">
+          <i class="fa-solid fa-gear"></i>
+        </div>
+        <div class="clear">
+          <i class="fa-solid fa-circle-minus"></i>
+        </div>
+        <div class="hide">
+          <i class="fa-solid fa-eye-slash"></i>
+        </div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
