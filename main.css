@@ -1,3 +1,18 @@
+/* Variables */
+:root {
+  --primary-color: #333;
+  --secondary-color: #666;
+  --border-color: #eee;
+  --accent-color: rgb(5, 127, 234);
+  --success-color: rgb(14, 150, 14);
+  --light-success-color: rgb(216, 255, 216);
+  --error-color: rgb(176, 20, 20);
+  --light-error-color: rgb(255, 216, 221);
+  --background-color: white;
+  --hover-background-color: #f6f6f6;
+}
+
+/* Reset styles and global styles */
 * {
   padding: 0;
   margin: 0;
@@ -6,6 +21,7 @@
   font-family: sans-serif;
 }
 
+/* Body styles */
 body {
   position: relative;
   display: flex;
@@ -14,9 +30,10 @@ body {
   align-items: center;
   padding: 64px;
   gap: 1rem;
-  color: #333;
+  color: var(--primary-color);
 }
 
+/* Input styles */
 .input {
   display: flex;
   align-items: center;
@@ -25,7 +42,8 @@ body {
   padding: 16px;
   border-radius: 30px;
   width: 400px;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-color);
+  background-color: var(--background-color);
 }
 
 .input input {
@@ -40,34 +58,35 @@ body {
   cursor: pointer;
   padding-bottom: 3px;
   border-radius: 50%;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-color);
   width: 40px;
   height: 40px;
   font-size: 28px;
-  color: #666;
-  background-color: white;
+  color: var(--secondary-color);
+  background-color: var(--background-color);
   font-weight: bold;
   transition: 300ms;
 }
 
 .input button:hover {
-  background-color: #eee;
-  color: black;
+  background-color: var(--hover-background-color);
+  color: var(--primary-color);
 }
 
+/* List styles */
 #list {
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: var(--background-color);
   width: 400px;
-  min-height: 300px;
-  max-height: 600px;
-  border: 1px solid #eee;
+  height: 400px;
+  border: 1px solid var(--border-color);
   border-radius: 24px;
   padding: 16px;
   overflow-y: scroll;
 }
 
+/* Task styles */
 .task {
   cursor: pointer;
   display: flex;
@@ -79,7 +98,7 @@ body {
 }
 
 .task:hover {
-  background-color: #f6f6f6;
+  background-color: var(--hover-background-color);
 }
 
 .task div {
@@ -96,42 +115,47 @@ body {
 
 .task i {
   cursor: pointer;
-  color: #666;
+  color: var(--secondary-color);
   transition: 300ms;
   font-size: 14px;
 }
 
 .task i:hover {
   scale: 1.2;
-  color: rgb(176, 20, 20);
+  color: var(--error-color);
 }
 
+/* Empty state */
 .empty {
   padding: 32px 0;
   text-align: center;
-  color: #999;
+  color: var(--secondary-color);
 }
 
+/* Completed task style */
 .done {
-  color: #999;
+  color: var(--secondary-color);
   text-decoration: line-through;
 }
 
+/* Actions container */
 .actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 400px;
   padding: 16px;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-color);
   border-radius: 30px;
 }
 
+/* Tools container */
 .tools {
   position: relative;
   z-index: 2;
 }
 
+/* Settings button */
 .settings {
   position: relative;
   cursor: pointer;
@@ -144,122 +168,111 @@ body {
   font-size: 24px;
   transition: 300ms;
   border-radius: 50%;
-  border: 1px solid #eee;
-  background-color: white;
-  color: #666;
+  border: 1px solid var(--border-color);
+  background-color: var(--background-color);
+  color: var(--secondary-color);
+}
+
+.settings::after {
+  position: absolute;
+  content: "";
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  scale: 0;
 }
 
 .tools:hover .settings {
   scale: 1.1;
   transform: rotate(20deg);
-  background-color: #eee;
-  color: black;
+  background-color: var(--hover-background-color);
+  color: var(--primary-color);
 }
 
-.clear {
-  z-index: -1;
-  cursor: pointer;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  bottom: 6px;
-  right: 6px;
-  width: 30px;
-  height: 30px;
-  padding: 8px;
-  font-size: 22px;
-  border-radius: 50%;
-  transition: 300ms;
-  background-color: white;
-  border: 1px solid #eee;
+.tools:hover .settings::after {
+  scale: 1;
 }
 
-.clear:hover {
-  color: rgb(176, 20, 20);
-}
-
-.clear::before {
-  position: absolute;
-  content: "Delete All";
-  font-size: 12px;
-  left: 33px;
-  top: 6px;
-  opacity: 0;
-  transition: 300ms;
-  width: 100px;
-}
-
-.clear::after {
-  position: absolute;
-  content: "";
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-}
-
-.clear:hover::before {
-  opacity: 1;
-  color: rgb(176, 20, 20);
-}
-
-.tools:hover .clear {
-  bottom: 50px;
-  right: -20px;
-}
-
+/* Clear button */
+.clear,
 .hide {
   z-index: -1;
-  cursor: pointer;
   position: absolute;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  bottom: 6px;
-  right: 6px;
+  opacity: 0;
+  scale: 0;
+  bottom: 0;
+  right: 0;
   width: 30px;
   height: 30px;
   padding: 8px;
   border-radius: 50%;
   font-size: 20px;
   transition: 300ms;
-  background-color: white;
-  border: 1px solid #eee;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+}
+
+.clear::before,
+.hide::before {
+  pointer-events: none;
+  position: absolute;
+  width: 100px;
+  font-size: 12px;
+  opacity: 0;
+  transition: 300ms;
+}
+
+.clear::before {
+  content: "Delete All";
+  left: 33px;
+  top: 6px;
 }
 
 .hide::before {
-  position: absolute;
   content: "Toggle Done";
-  font-size: 12px;
   left: -75px;
   top: 6px;
-  opacity: 0;
-  transition: 300ms;
-  width: 80px;
 }
 
+.clear:hover {
+  color: var(--error-color);
+}
+.hide:hover {
+  color: var(--accent-color);
+}
+
+.clear:hover::before,
 .hide:hover::before {
   opacity: 1;
-  color: rgb(5, 127, 234);
 }
 
+.clear::after,
 .hide::after {
   position: absolute;
   content: "";
-  width: 80px;
-  height: 80px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
 }
 
-.hide:hover {
-  color: rgb(5, 127, 234);
-}
-
+.tools:hover .clear,
 .tools:hover .hide {
+  scale: 1;
+  opacity: 1;
   bottom: 50px;
+}
+.tools:hover .clear {
+  right: -15px;
+}
+.tools:hover .hide {
   right: 30px;
 }
 
+/* Progress styles */
 .progress {
   padding: 8px;
   font-size: 14px;
@@ -274,12 +287,102 @@ body {
   width: 100%;
   height: 8px;
   border-radius: 8px;
-  background-color: #eee;
+  background-color: var(--border-color);
 }
+
 .progress-percentage {
   height: 100%;
   width: 0%;
   border-radius: 8px;
   transition: 300ms;
-  background-color: rgb(5, 127, 234);
+  background-color: var(--accent-color);
+}
+
+/* Notification styles */
+.noti {
+  z-index: 100;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  opacity: 0;
+  bottom: -100px;
+  width: 400px;
+  padding: 16px;
+  border-radius: 16px;
+  font-size: 14px;
+}
+
+.add-noti {
+  color: var(--success-color);
+  background-color: var(--light-success-color);
+  border: 1px solid var(--success-color);
+}
+
+.delete-noti {
+  color: var(--error-color);
+  background-color: var(--light-error-color);
+  border: 1px solid var(--error-color);
+}
+
+/* Delete Confirmation */
+
+.delete-msg-wrap {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: #00000009;
+}
+
+.delete-msg {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background-color);
+  padding: 2rem;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  width: 450px;
+}
+
+.delete-msg p {
+  text-align: center;
+  margin: 28px 0;
+}
+
+.delete-msg p span {
+  color: var(--accent-color);
+}
+
+.delete-msg div {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.delete-msg div button {
+  cursor: pointer;
+  padding: 8px;
+  width: 120px;
+  border-radius: 4px;
+  border: none;
+  transition: 300ms;
+}
+
+.delete-msg div #deleteBtn {
+  background-color: var(--light-error-color);
+  color: var(--error-color);
+}
+
+.delete-msg div #deleteBtn:hover {
+  background-color: var(--error-color);
+  color: white;
+}
+
+.delete-msg div #cancelBtn:hover {
+  background-color: #ddd;
 }

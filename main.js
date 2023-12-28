@@ -35,7 +35,9 @@ $("#inpt").keypress(function (e) {
   }
 });
 
-$("#list").on("click", "#del", handelDelete);
+$("#list").on("click", "#del", function () {
+  deleteConfim($(this).parent().find("p").text().trim());
+});
 
 $("#list").sortable({
   cursor: "grab",
@@ -46,13 +48,14 @@ $("#list").sortable({
 
 $("#list").on("change", "input:checkbox", handelDone);
 
-$(".clear").click(handelDeleteAll);
+$(".clear").click(() => deleteConfim("All tasks"));
 
 $(".hide").click(handelToogleHide);
 
 function handelAdd() {
   const inputVal = $("#inpt").val();
   if (inputVal.trim() !== "") {
+    addNotification();
     $(".empty").remove();
     const newTask = new Task($("#inpt").val(), false, Date.now());
     tasks.push(newTask);
@@ -77,16 +80,19 @@ function handelAppend(task) {
   );
 }
 
-function handelDelete() {
-  let thisId = $(this).parent().attr("id");
+function handelDelete(taskName) {
+  deleteNotification();
   for (let i = 0; i < tasks.length; i++) {
-    if (tasks[i].id == thisId) {
+    if (tasks[i].task == taskName) {
       if (tasks[i].isDone) {
         decreaseDone();
       }
+      let taskId = tasks[i].id;
+      $("#list")
+        .find("div#" + taskId)
+        .remove();
       tasks.splice(i, 1);
       localStorage.setItem("tasks", JSON.stringify(tasks));
-      $(this).parent().remove();
     }
   }
   if (tasks.length == 0) {
@@ -186,7 +192,7 @@ function updateProgress() {
   $(".progress-text").text(
     `${doneCount}/${tasks.length} ${doneCount > 1 ? "tasks" : "task"} ${
       doneCount > 1 ? "are" : ""
-    } marked as done.`
+    } marked as done`
   );
 
   if (tasks.length > 0) {
@@ -217,3 +223,81 @@ function decreaseDone() {
 function handelEmpty() {
   $("#list").append('<p class="empty" > no available tasks</p>');
 }
+
+function addNotification() {
+  const addNoti = $(
+    '<div class="add-noti noti"> <i class="fa-solid fa-check"></i> <p>The task has been added successfully</p> </div>'
+  );
+  $("body").append(addNoti);
+  addNoti.animate({
+    bottom: "16px",
+    opacity: "1",
+  });
+  setTimeout(function () {
+    addNoti.animate({
+      bottom: "-100px",
+      opacity: "0",
+    });
+    setTimeout(() => {
+      addNoti.remove();
+    }, 600);
+  }, 1500);
+}
+
+function deleteNotification() {
+  const deleteNoti = $(
+    '<div class="delete-noti noti"> <i class="fa-solid fa-broom"></i> <p>The task has been deleted successfully</p> </div>'
+  );
+  $("body").append(deleteNoti);
+  deleteNoti.animate({
+    bottom: "16px",
+    opacity: "1",
+  });
+  setTimeout(function () {
+    deleteNoti.animate({
+      bottom: "-100px",
+      opacity: "0",
+    });
+    setTimeout(() => {
+      deleteNoti.remove();
+    }, 600);
+  }, 1500);
+}
+
+function deleteConfim(taskName) {
+  let deleteMsg = null;
+  if (taskName == "All tasks" && $(".task").length == 0) {
+    deleteMsg = `<div class="delete-msg-wrap">
+                <div class="delete-msg">
+                  <p>The task list is already empty</p>
+                <div>
+                  <button id="cancelBtn">Ok</button>
+                </div>
+              </div>`;
+  } else {
+    deleteMsg = `<div class="delete-msg-wrap">
+                <div class="delete-msg">
+                  <p>Are you sure that you want to delete <span>${taskName}</span> from task list ?</p>
+                <div>
+                  <button id="deleteBtn">Delete</button>
+                  <button id="cancelBtn">Cancel</button>
+                </div>
+              </div>`;
+  }
+  $("body").append(deleteMsg);
+}
+
+$("body").on("click", "#deleteBtn", function () {
+  if ($(".delete-msg-wrap").find("span").text().trim() == "All tasks") {
+    handelDeleteAll();
+  } else {
+    handelDelete($(".delete-msg-wrap").find("span").text().trim());
+  }
+  $(".delete-msg-wrap").remove();
+  return true;
+});
+
+$("body").on("click", "#cancelBtn", function () {
+  $(".delete-msg-wrap").remove();
+  return false;
+});
