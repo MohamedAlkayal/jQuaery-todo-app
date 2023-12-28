@@ -7,7 +7,7 @@ Features
 1. ### Add Tasks with Ease
    Adding new tasks is a breeze. Simply type your task in the input field and hit "Enter" or click the "+" button to instantly add it to your to-do list.
 
-```
+``` JavaScript
 // Event listener for adding tasks
 $("#btn").click(handelAdd);
 
